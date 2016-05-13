@@ -1,0 +1,51 @@
+﻿@model  List<MvcTestGit.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Produtos</h2>
+
+<a href="@Url.Action("Create", "Product")" class="btn btn-success">
+    Novo Produto
+    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+</a>
+
+<hr />
+
+@*@foreach (var prod in Model)
+{
+    <ol>
+        <li>@prod.Id - @prod.Name - @prod.Category - @prod.Price</li>
+    </ol>
+}*@
+
+@*Ex1. Melhorar e colocar em uma tabela*@
+
+
+<div class="table-responsive">
+    <table class="table table-striped ">
+        <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+        @foreach (var prod in Model)
+        {
+            var badgeClass = @prod.Price <= 15 ? "label-success": "label-danger";
+            <tr>
+                <td><span class="label @badgeClass">@prod.Name</span></td>
+                <td>@prod.Category</td>
+                <td>@prod.Price</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = prod.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = prod.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = prod.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
